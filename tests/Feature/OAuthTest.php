@@ -3,12 +3,13 @@
 namespace Tests\Feature;
 
 use App\User;
-use Mockery as m;
-use Tests\TestCase;
+use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Laravel\Socialite\Facades\Socialite;
-use PHPUnit\Framework\Assert as PHPUnit;
-use Illuminate\Foundation\Testing\TestResponse;
 use Laravel\Socialite\Two\User as SocialiteUser;
+use Mockery as m;
+use PHPUnit\Framework\Assert as PHPUnit;
+use Tests\TestCase;
 
 class OAuthTest extends TestCase
 {
@@ -17,13 +18,13 @@ class OAuthTest extends TestCase
         parent::setUp();
 
         TestResponse::macro('assertText', function ($text) {
-            PHPUnit::assertTrue(str_contains($this->getContent(), $text), "Expected text [{$text}] not found.");
+            PHPUnit::assertTrue(Str::contains($this->getContent(), $text), "Expected text [{$text}] not found.");
 
             return $this;
         });
 
         TestResponse::macro('assertTextMissing', function ($text) {
-            PHPUnit::assertFalse(str_contains($this->getContent(), $text), "Expected missing text [{$text}] found.");
+            PHPUnit::assertFalse(Str::contains($this->getContent(), $text), "Expected missing text [{$text}] found.");
 
             return $this;
         });
